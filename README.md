@@ -74,7 +74,7 @@ See `docs/ARCHITECTURE.md` for module contracts and data model, and `docs/ACCURA
 ## Known limitations
 
 - `auto` mode is sensitive to overtones and tends to add extra notes; use `vocal` for singing and `piano` for piano.
-- Drum classification uses band-energy rules; dense hi-hat and snare get confused (F1 around 35%).
+- Drum classification uses band-energy rules, not a trained classifier. On the synthetic test mix it reaches about 80% F1 (runs vary by ±5–15 points); dense hi-hat and snare in real recordings can still be confused.
 - demucs separation is unstable on synthetic test audio; real recordings fare better.
 - verovio cannot load its bundled fonts from a path with non-ASCII characters; the app copies them to `%LOCALAPPDATA%\ScoreEar\` automatically.
 
