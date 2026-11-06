@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+dist/
+build/pyinstaller_work/
+build/*.spec
+models/
+*.wav
+*.tmp
+*.log
+install_log.txt
+runtime/

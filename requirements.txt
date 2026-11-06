@@ -1,0 +1,45 @@
+# 聽歌寫譜 - Python 依賴清單（不鎖版本；鎖定版本見 requirements-lock.txt）
+# 安裝方式：直接執行 setup_env.ps1，或參考下列分組手動安裝。
+# verovio 字型路徑的處理見 notation/staff.py 的 _get_verovio_resource_dir()。
+
+# --- 基礎音訊 / MIDI / 數值運算 ---
+numpy
+scipy
+soundfile
+mido
+pretty_midi
+librosa
+imageio-ffmpeg
+
+# --- Web API / 桌面殼層 / 打包 / 測試 ---
+fastapi
+uvicorn
+python-multipart
+httpx
+pywebview
+pyinstaller
+pytest
+
+# --- 樂譜渲染 ---
+# 注意：pip 版 verovio 內附字型資源(Bravura/Leipzig)在「路徑含中文/CJK字元」時會
+# 讀取失敗（loadData 回 False）。本專案本身路徑就含中文，務必在呼叫前
+# tk.setResourcePath(<ASCII 路徑的資源複本>)，寫法見 notation/staff.py。
+verovio
+
+# --- PyTorch 家族 (來源: 官方 CUDA 12.8 wheel index https://download.pytorch.org/whl/cu128) ---
+# RTX 50 系列（Blackwell, sm_120）需要 cu128 以上版本的 torch 才有對應 kernel。
+# 純 CPU 環境可改用 --index-url https://download.pytorch.org/whl/cpu
+torch
+torchaudio
+torchcrepe
+
+# --- 多樂器辨識 / 鋼琴轉譜 / 音源分離 ---
+# basic-pitch 用 [onnx] extra：走 onnxruntime 後端，不需要安裝 tensorflow。
+basic-pitch[onnx]
+piano_transcription_inference
+demucs
+
+# --- 明確不安裝 ---
+# music21   -> 專案方向已決定不用 music21（樂譜物件模型改自製或直接產 MusicXML）
+# madmom    -> Windows + Python 3.10 + numpy2 組合編譯/相容風險高，未嘗試安裝
+# tensorflow / tflite-runtime / coremltools -> 不需要，basic-pitch 走 onnx 後端

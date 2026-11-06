@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>聽歌寫譜</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="app-header">
+  <h1>聽歌寫譜</h1>
+  <p class="subtitle">上傳錄音，自動辨識音符並產生五線譜與簡譜</p>
+</header>
+
+<main class="container">
+
+  <!-- 上傳區 -->
+  <section class="card" id="upload-card">
+    <div id="dropzone" class="dropzone">
+      <p>拖放音檔到這裡，或</p>
+      <button type="button" id="pick-file-btn" class="btn btn-secondary">選擇檔案</button>
+      <input type="file" id="file-input" accept=".wav,.flac,.ogg,.mp3,.m4a,.mp4,.aac" hidden>
+      <p id="selected-file-name" class="selected-file"></p>
+    </div>
+
+    <div class="options-grid">
+      <label class="option">
+        <span>模式</span>
+        <select id="opt-mode">
+          <option value="solo">獨奏</option>
+          <option value="multi">多樂器</option>
+        </select>
+      </label>
+
+      <label class="option" id="opt-instrument-hint-wrap">
+        <span>獨奏樂器提示</span>
+        <select id="opt-instrument-hint">
+          <option value="auto">自動</option>
+          <option value="piano">鋼琴</option>
+          <option value="vocal">人聲</option>
+          <option value="guitar">吉他</option>
+          <option value="other">其他</option>
+        </select>
+      </label>
+
+      <label class="option">
+        <span>BPM 覆寫</span>
+        <input type="number" id="opt-bpm" placeholder="留空＝自動偵測" min="20" max="300" step="0.1">
+      </label>
+
+      <label class="option">
+        <span>拍號</span>
+        <select id="opt-time-signature">
+          <option value="auto">自動</option>
+          <option value="4/4">4/4</option>
+          <option value="3/4">3/4</option>
+          <option value="6/8">6/8</option>
+        </select>
+      </label>
+
+      <label class="option">
+        <span>最小格</span>
+        <select id="opt-quantize">
+          <option value="1/8">1/8</option>
+          <option value="1/16" selected>1/16</option>
+          <option value="1/32">1/32</option>
+        </select>
+      </label>
+
+      <label class="option option-checkbox">
+        <input type="checkbox" id="opt-use-gpu" checked>
+        <span>使用 GPU（若可用）</span>
+      </label>
+
+      <label class="option option-checkbox" id="opt-suppress-harmonics-wrap" title="僅在獨奏（自動判斷樂器）或多樂器模式下有效果；其他情況設定仍會送出，但不影響結果">
+        <input type="checkbox" id="opt-suppress-harmonics" checked>
+        <span>抑制泛音誤判</span>
+      </label>
+    </div>
+
+    <button type="button" id="start-btn" class="btn btn-primary" disabled>開始寫譜</button>
+  </section>
+
+  <!-- 進度區 -->
+  <section class="card" id="progress-card" hidden>
+    <h2>處理進度</h2>
+    <div class="progress-bar-track">
+      <div id="progress-bar-fill" class="progress-bar-fill" style="width:0%"></div>
+    </div>
+    <p id="progress-message">準備中……</p>
+  </section>
+
+  <!-- 錯誤訊息 -->
+  <section class="card card-error" id="error-card" hidden>
+    <p id="error-message"></p>
+  </section>
+
+  <!-- 結果區 -->
+  <section class="card" id="result-card" hidden>
+    <div class="result-toolbar">
+      <div class="tabs">
+        <button type="button" class="tab-btn active" data-tab="staff">五線譜</button>
+        <button type="button" class="tab-btn" data-tab="jianpu">簡譜</button>
+        <button type="button" class="tab-btn" data-tab="info">資訊</button>
+      </div>
+
+      <div class="result-controls">
+        <label class="option option-inline" id="part-select-wrap" hidden>
+          <span>顯示聲部</span>
+          <select id="part-select"></select>
+        </label>
+        <label class="option option-inline">
+          <span>縮放</span>
+          <input type="range" id="zoom-range" min="50" max="150" value="100" step="10">
+          <span id="zoom-value">100%</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-staff">
+      <div id="staff-container" class="svg-container"></div>
+    </div>
+
+    <div class="tab-panel" id="tab-jianpu" hidden>
+      <div id="jianpu-container" class="svg-container"></div>
+    </div>
+
+    <div class="tab-panel" id="tab-info" hidden>
+      <table class="info-table">
+        <tbody id="info-table-body"></tbody>
+      </table>
+      <div id="warnings-box" class="warnings-box" hidden>
+        <h3>警告</h3>
+        <ul id="warnings-list"></ul>
+      </div>
+    </div>
+
+    <div class="download-bar">
+      <a id="dl-musicxml" class="btn btn-download" href="#" download>下載 MusicXML</a>
+      <a id="dl-midi" class="btn btn-download" href="#" download>下載 MIDI</a>
+      <a id="dl-jianpu" class="btn btn-download" href="#" download>下載 簡譜 SVG</a>
+      <a id="dl-staff" class="btn btn-download" href="#" download>下載 五線譜 SVG</a>
+      <a id="dl-json" class="btn btn-download" href="#" download>下載 JSON</a>
+    </div>
+  </section>
+
+</main>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

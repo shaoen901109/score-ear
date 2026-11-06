@@ -1,0 +1,285 @@
+/* 聽歌寫譜 - 樣式表（深色友善，無外部字型依賴） */
+
+:root {
+  --bg: #f5f6f8;
+  --card-bg: #ffffff;
+  --text: #1c1e21;
+  --text-muted: #6b7280;
+  --border: #d9dce1;
+  --accent: #4f7cff;
+  --accent-hover: #3a63e0;
+  --error-bg: #fde8e8;
+  --error-text: #9b1c1c;
+  --track-bg: #e5e7eb;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16181d;
+    --card-bg: #21242b;
+    --text: #e8e9ec;
+    --text-muted: #9aa0aa;
+    --border: #34383f;
+    --accent: #6d8dff;
+    --accent-hover: #85a0ff;
+    --error-bg: #3a1f1f;
+    --error-text: #ff8a8a;
+    --track-bg: #2c2f36;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Microsoft JhengHei", "PingFang TC", "Noto Sans TC", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.app-header {
+  padding: 24px 16px 8px;
+  text-align: center;
+}
+
+.app-header h1 {
+  margin: 0 0 4px;
+  font-size: 28px;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.card-error {
+  background: var(--error-bg);
+  color: var(--error-text);
+  border-color: var(--error-text);
+}
+
+.dropzone {
+  border: 2px dashed var(--border);
+  border-radius: 8px;
+  padding: 32px 16px;
+  text-align: center;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.dropzone.dragover {
+  border-color: var(--accent);
+  background: rgba(79, 124, 255, 0.08);
+}
+
+.selected-file {
+  margin-top: 8px;
+  font-weight: bold;
+  color: var(--accent);
+  word-break: break-all;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.option select,
+.option input[type="number"] {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+}
+
+.option-checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.option-inline {
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+.option-disabled {
+  opacity: 0.5;
+}
+
+.btn {
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: white;
+  width: 100%;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: var(--track-bg);
+  color: var(--text);
+}
+
+.btn-download {
+  background: var(--track-bg);
+  color: var(--text);
+  font-size: 13px;
+  padding: 8px 14px;
+}
+
+.btn-download:hover {
+  background: var(--border);
+}
+
+.progress-bar-track {
+  width: 100%;
+  height: 12px;
+  background: var(--track-bg);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+#progress-message {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.result-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.tab-btn {
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  padding: 8px 16px;
+  border-radius: 6px 6px 0 0;
+  font-size: 14px;
+}
+
+.tab-btn.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.result-controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.svg-container {
+  overflow: auto;
+  max-height: 70vh;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px;
+  background: #ffffff;
+}
+
+.svg-container svg {
+  display: block;
+  margin: 0 auto 16px;
+}
+
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.info-table td, .info-table th {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.warnings-box {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 6px;
+  background: var(--error-bg);
+  color: var(--error-text);
+}
+
+.warnings-box h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+}
+
+.download-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
