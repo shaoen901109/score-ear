@@ -2,6 +2,8 @@
 
 English | [繁體中文](README.zh-TW.md)
 
+> 📖 **Step-by-step tutorial (Traditional Chinese):** https://shao-en.com/blog/score-ear-guide.html — not sure how to set it up? Hand the article to Claude or ChatGPT and let it walk you through.
+
 Upload a recording, get sheet music back. score-ear detects the notes and exports staff notation and numbered (jianpu) notation. It runs locally with a browser UI, so your audio never leaves your machine. It handles solo recordings and full mixes (the mix is first split into vocals / drums / bass / other with AI, then each stem is transcribed).
 
 > Automatic transcription is never perfect. Treat the output as a starting point and correct it yourself.
