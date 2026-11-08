@@ -88,6 +88,28 @@ See `docs/ARCHITECTURE.md` for module contracts and data model, and `docs/ACCURA
 
 Tests marked `slow` download models and are excluded by default.
 
+## Verify your download
+
+Download `score-ear-v1.0.0.zip` and `SHA256SUMS.txt` from [Releases](https://github.com/shaoen901109/score-ear/releases) (use the version you actually downloaded).
+
+1. Compare the checksum in PowerShell:
+
+   ```powershell
+   Get-FileHash .\score-ear-v1.0.0.zip -Algorithm SHA256
+   ```
+
+   The `Hash` must match the string in `SHA256SUMS.txt` (letter case does not matter).
+
+2. Verify where it was built (needs [GitHub CLI](https://cli.github.com/)):
+
+   ```powershell
+   gh attestation verify .\score-ear-v1.0.0.zip --repo shaoen901109/score-ear
+   ```
+
+   A successful result means GitHub Actions built this zip from this repository's source and it was not swapped along the way.
+
+Commits marked **Verified** on GitHub are signed by the author.
+
 ## Credits
 
 Built on these open-source projects and research:

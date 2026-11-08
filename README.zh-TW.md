@@ -86,6 +86,28 @@ run_dev.bat
 
 `slow` 標記的測試會下載模型，預設排除。
 
+## 校驗下載檔
+
+到 [Releases](https://github.com/shaoen901109/score-ear/releases) 下載 `score-ear-v1.0.0.zip` 和 `SHA256SUMS.txt`（版本號以你實際下載的為準）。
+
+1. 用 PowerShell 比對指紋（SHA256，檔案的數位指紋）：
+
+   ```powershell
+   Get-FileHash .\score-ear-v1.0.0.zip -Algorithm SHA256
+   ```
+
+   輸出的 `Hash` 要和 `SHA256SUMS.txt` 裡的字串一致（大小寫不同沒關係）。
+
+2. 驗證來源（需安裝 [GitHub CLI](https://cli.github.com/)）：
+
+   ```powershell
+   gh attestation verify .\score-ear-v1.0.0.zip --repo shaoen901109/score-ear
+   ```
+
+   顯示驗證成功，代表這個 zip 是 GitHub Actions 從本 repo 原始碼建出來的，中途沒有被替換。
+
+GitHub 上標示 **Verified** 的 commit，是作者本人簽章。
+
 ## 技術來源與致謝
 
 本專案建立在這些開源專案與研究之上：
