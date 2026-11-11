@@ -57,7 +57,7 @@ onnxruntime==1.23.2
 packaging==26.3
 pefile==2024.8.26
 piano-transcription-inference==0.0.6
-pillow==12.3.0
+pillow==13.0.0
 platformdirs==4.12.1
 pluggy==1.6.0
 pooch==1.9.0
